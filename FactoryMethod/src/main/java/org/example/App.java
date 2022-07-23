@@ -5,10 +5,23 @@ package org.example;
  */
 public class App {
     public static void main(String[] args) {
-        CppDeveloper cppDeveloper = new CppDeveloper();
-        cppDeveloper.writeCode();
-        JavaDeveloper javaDeveloper = new JavaDeveloper();
-        javaDeveloper.writeCode();
+//        Developer Developer = new CppDeveloper();
+//        Developer.writeCode();
+        DeveloperFactory developerFactory = createDeveloperBySpecialty("php");
+        Developer developer = developerFactory.createdDeveloper();
+        developer.writeCode();
 
+    }
+
+    static DeveloperFactory createDeveloperBySpecialty(String specialty){
+        if(specialty.equalsIgnoreCase("java")){
+            return new JavaDeveloperFactory();
+        }else if(specialty.equalsIgnoreCase("c++")){
+            return new CppDeveloperFactory();
+        }else if(specialty.equalsIgnoreCase("php")){
+            return new PhpDeveloperFactory();
+        }else {
+            throw new RuntimeException(specialty + " is unknown specialty. ");
+        }
     }
 }
